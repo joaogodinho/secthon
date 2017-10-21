@@ -211,7 +211,8 @@ public class MultiLevelLogin2 extends LessonAdapter {
 			s.add(LOGGEDIN, "false");
 			s.add(CORRECTTAN, "false");
 
-			createSuccessfulLoginContent(s, ec, hiddenUser);
+			//createSuccessfulLoginContent(s, ec, hiddenUser);
+			createSuccessfulLoginContent(s, ec, user);
 
 		} else if (loggedIn(s)) {
 			createAskForTanContent(s, ec, getCurrentTanPosition(s), user);
