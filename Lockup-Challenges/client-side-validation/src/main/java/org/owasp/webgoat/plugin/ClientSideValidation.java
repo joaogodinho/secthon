@@ -28,14 +28,18 @@ public class ClientSideValidation extends SequentialLessonAdapter
 {
 
     private static final String PRICE_1 = "$69.99";
+    private static final float PRICE_1_F = 69.99f;
 
     private static final String PRICE_2 = "$27.99";
+    private static final float PRICE_2_F = 27.99f;
 
     private static final String PRICE_3 = "$1599.99";
+    private static final float PRICE_3_F = 1599.99f;
 
     private static final String PRICE_4 = "$299.99";
+    private static final float PRICE_4_F = 299.99f;
 
-    private static final Double PLATINUM_DISCOUNT = 0.75;
+    private static final float PLATINUM_DISCOUNT = 0.75f;
 
     protected Element createContent(WebSession s)
     {
@@ -82,11 +86,12 @@ public class ClientSideValidation extends SequentialLessonAdapter
     }
 
     private void defendIt(WebSession s) {
+        s.setMessage("$" + String.valueOf(getTotalQty(s)));
         //Change this to validate prices
-        if (getTotalQty(s) > 0)
-        {
-            s.setMessage("Congrats! Your order is for free.");
-        }
+        // if (getTotalQty(s) == 0)
+        // {
+        //     s.setMessage("Congrats! Your order is for free.");
+        // }
     }
 
     protected ElementContainer createTotalTable(WebSession s)
@@ -151,17 +156,23 @@ public class ClientSideValidation extends SequentialLessonAdapter
 
     }
 
-    protected int getTotalQty(WebSession s)
+    protected float getTotalQty(WebSession s)
     {
+        float quantity = 0;
+        float discount = 1.0f;
 
-        int quantity = 0;
+        String coupon = s.getParser().getStringParameter("field1", "");
+        // PLATINUM
+        if (coupon.equals("PLATINUM")) {
+            discount = PLATINUM_DISCOUNT;
+        }
 
-        quantity += s.getParser().getFloatParameter("QTY1", 0.0f);
-        quantity += s.getParser().getFloatParameter("QTY2", 0.0f);
-        quantity += s.getParser().getFloatParameter("QTY3", 0.0f);
-        quantity += s.getParser().getFloatParameter("QTY4", 0.0f);
+        quantity += s.getParser().getFloatParameter("QTY1", 0.0f) * PRICE_1_F;
+        quantity += s.getParser().getFloatParameter("QTY2", 0.0f) * PRICE_2_F;
+        quantity += s.getParser().getFloatParameter("QTY3", 0.0f) * PRICE_3_F;
+        quantity += s.getParser().getFloatParameter("QTY4", 0.0f) * PRICE_4_F;
 
-        return quantity;
+        return quantity * discount;
     }
 
     protected ElementContainer createQtyTable(WebSession s)
