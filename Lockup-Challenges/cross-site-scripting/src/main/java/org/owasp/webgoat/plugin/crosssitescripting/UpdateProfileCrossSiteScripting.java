@@ -77,7 +77,6 @@ public class UpdateProfileCrossSiteScripting extends DefaultLessonAction {
 		// String disciplinaryActionNotes = request.getParameter(CrossSiteScripting.DISCIPLINARY_NOTES);
 		// String personalDescription = request.getParameter(CrossSiteScripting.DESCRIPTION);
 
-           param1);
 		String firstName = HtmlEncoder.encode(request.getParameter(CrossSiteScripting.FIRST_NAME));
 		String lastName = HtmlEncoder.encode(request.getParameter(CrossSiteScripting.LAST_NAME));
 		String ssn = HtmlEncoder.encode(request.getParameter(CrossSiteScripting.SSN));
