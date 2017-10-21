@@ -122,11 +122,15 @@ public class JSONInjection extends LessonAdapter
     }
 
     private void defendIt(WebSession s) {
-        if (s.getParser().getRawParameter("radio0", "").equals("on"))
-        {
-            s.setMessage("Congratulations. You bought it!");
-        } else if (s.getParser().getRawParameter("radio1", "").equals("on")) {
-            s.setMessage("Congratulations. You bought it!");
+        String price = s.getParser().getRawParameter("price2Submit"));
+            if (s.getParser().getRawParameter("radio0", "").equals("on") &&
+                price == FLIGHT_PRICE_1)
+            {
+                s.setMessage("Congratulations. You bought it!");
+            } else if (s.getParser().getRawParameter("radio1", "").equals("on") &&
+                price == FLIGHT_PRICE_2) {
+                s.setMessage("Congratulations. You bought it!");
+            }
         }
     }
 
