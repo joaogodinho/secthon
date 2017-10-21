@@ -131,11 +131,14 @@ public class RoleBasedAccessControl extends GoatHillsFinancial {
 
     private void defendIt(WebSession s, DefaultLessonAction action)
             throws UnauthorizedException, UnauthenticatedException, ParameterNotFoundException, ValidationException {
-        try {
+        
+        String requestedActionName = s.getParser().getStringParameter("action");
+        if (s.isAuthorizedInLesson(s.getUserIdInLesson(), requestedActionName)) {
             if (action.isAuthenticated(s)) {
                 action.handleRequest(s);
-            } else
+            } else {
                 throw new UnauthenticatedException();
-        } catch(UnauthenticatedException e) { }
+            }
+        }
     }
 }
