@@ -20,6 +20,8 @@ import java.sql.Statement;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.owasp.webgoat.util.HtmlEncoder;
+
 public class UpdateProfileCrossSiteScripting extends DefaultLessonAction {
 
 	private LessonAction chainedAction;
@@ -59,21 +61,38 @@ public class UpdateProfileCrossSiteScripting extends DefaultLessonAction {
 		// is the better solution.
 
 		HttpServletRequest request = s.getRequest();
-		String firstName = request.getParameter(CrossSiteScripting.FIRST_NAME);
-		String lastName = request.getParameter(CrossSiteScripting.LAST_NAME);
-		String ssn = request.getParameter(CrossSiteScripting.SSN);
-		String title = request.getParameter(CrossSiteScripting.TITLE);
-		String phone = request.getParameter(CrossSiteScripting.PHONE_NUMBER);
-		String address1 = request.getParameter(CrossSiteScripting.ADDRESS1);
-		String address2 = request.getParameter(CrossSiteScripting.ADDRESS2);
+		// String firstName = request.getParameter(CrossSiteScripting.FIRST_NAME);
+		// String lastName = request.getParameter(CrossSiteScripting.LAST_NAME);
+		// String ssn = request.getParameter(CrossSiteScripting.SSN);
+		// String title = request.getParameter(CrossSiteScripting.TITLE);
+		// String phone = request.getParameter(CrossSiteScripting.PHONE_NUMBER);
+		// String address1 = request.getParameter(CrossSiteScripting.ADDRESS1);
+		// String address2 = request.getParameter(CrossSiteScripting.ADDRESS2);
+		// int manager = Integer.parseInt(request.getParameter(CrossSiteScripting.MANAGER));
+		// String startDate = request.getParameter(CrossSiteScripting.START_DATE);
+		// int salary = Integer.parseInt(request.getParameter(CrossSiteScripting.SALARY));
+		// String ccn = request.getParameter(CrossSiteScripting.CCN);
+		// int ccnLimit = Integer.parseInt(request.getParameter(CrossSiteScripting.CCN_LIMIT));
+		// String disciplinaryActionDate = request.getParameter(CrossSiteScripting.DISCIPLINARY_DATE);
+		// String disciplinaryActionNotes = request.getParameter(CrossSiteScripting.DISCIPLINARY_NOTES);
+		// String personalDescription = request.getParameter(CrossSiteScripting.DESCRIPTION);
+
+           param1);
+		String firstName = HtmlEncoder.encode(request.getParameter(CrossSiteScripting.FIRST_NAME));
+		String lastName = HtmlEncoder.encode(request.getParameter(CrossSiteScripting.LAST_NAME));
+		String ssn = HtmlEncoder.encode(request.getParameter(CrossSiteScripting.SSN));
+		String title = HtmlEncoder.encode(request.getParameter(CrossSiteScripting.TITLE));
+		String phone = HtmlEncoder.encode(request.getParameter(CrossSiteScripting.PHONE_NUMBER));
+		String address1 = HtmlEncoder.encode(request.getParameter(CrossSiteScripting.ADDRESS1));
+		String address2 = HtmlEncoder.encode(request.getParameter(CrossSiteScripting.ADDRESS2));
 		int manager = Integer.parseInt(request.getParameter(CrossSiteScripting.MANAGER));
-		String startDate = request.getParameter(CrossSiteScripting.START_DATE);
+		String startDate = HtmlEncoder.encode(request.getParameter(CrossSiteScripting.START_DATE));
 		int salary = Integer.parseInt(request.getParameter(CrossSiteScripting.SALARY));
-		String ccn = request.getParameter(CrossSiteScripting.CCN);
+		String ccn = HtmlEncoder.encode(request.getParameter(CrossSiteScripting.CCN));
 		int ccnLimit = Integer.parseInt(request.getParameter(CrossSiteScripting.CCN_LIMIT));
-		String disciplinaryActionDate = request.getParameter(CrossSiteScripting.DISCIPLINARY_DATE);
-		String disciplinaryActionNotes = request.getParameter(CrossSiteScripting.DISCIPLINARY_NOTES);
-		String personalDescription = request.getParameter(CrossSiteScripting.DESCRIPTION);
+		String disciplinaryActionDate = HtmlEncoder.encode(request.getParameter(CrossSiteScripting.DISCIPLINARY_DATE));
+		String disciplinaryActionNotes = HtmlEncoder.encode(request.getParameter(CrossSiteScripting.DISCIPLINARY_NOTES));
+		String personalDescription = HtmlEncoder.encode(request.getParameter(CrossSiteScripting.DESCRIPTION));
 
 		Employee employee = new Employee(subjectId, firstName, lastName, ssn, title, phone, address1, address2, manager,
 				startDate, salary, ccn, ccnLimit, disciplinaryActionDate, disciplinaryActionNotes, personalDescription);
