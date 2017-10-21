@@ -1,0 +1,106 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <name>webgoat-plugins-parent</name>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.owasp.webgoat.lesson</groupId>
+    <artifactId>webgoat-plugins-parent</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0</version>
+
+    <properties>
+        <webgoat.container.version>7.1</webgoat.container.version>
+    </properties>
+
+    <modules>
+        <module>common</module>
+        <module>goat-hills-financial</module>
+        <module>client-side-validation</module>
+        <module>cross-site-scripting</module>
+        <module>db-sql-injection</module>
+        <module>dom-xss</module>
+        <module>error-handling</module>
+        <module>how-to-work</module>
+        <module>json-injection</module>
+        <module>multi-level-login2</module>
+        <module>reflected-xss</module>
+        <module>business-layer-access</module>
+        <module>sql-string-injection</module>
+        <module>xml-injection</module>
+        <module>xpath-injection</module>
+        <module>csrf</module>
+        <!--Should be defined as the last module -->
+        <module>dist</module>
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.owasp.webgoat</groupId>
+            <artifactId>webgoat-container</artifactId>
+            <scope>provided</scope>
+            <type>jar</type>
+        </dependency>
+    </dependencies>
+    <dependencyManagement>
+
+        <dependencies>
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>3.1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.owasp.webgoat</groupId>
+                <artifactId>webgoat-container</artifactId>
+                <version>${webgoat.container.version}</version>
+                <type>jar</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>${basedir}/src/main/java</directory>
+            </resource>
+            <resource>
+                <directory>${basedir}/src/main/resources</directory>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                    <encoding>ISO-8859-1</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-artifact</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>${project.groupId}</groupId>
+                                    <artifactId>${project.artifactId}</artifactId>
+                                    <version>${project.version}</version>
+                                    <type>${project.packaging}</type>
+                                </artifactItem>
+                            </artifactItems>
+                            <outputDirectory>../target/plugins</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
