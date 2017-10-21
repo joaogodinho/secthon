@@ -122,16 +122,14 @@ public class JSONInjection extends LessonAdapter
     }
 
     private void defendIt(WebSession s) {
-        String price = s.getParser().getRawParameter("price2Submit"));
-            if (s.getParser().getRawParameter("radio0", "").equals("on") &&
-                price == FLIGHT_PRICE_1)
-            {
+        try {
+            String price = s.getParser().getRawParameter("price2Submit");
+            if (s.getParser().getRawParameter("radio0", "").equals("on") && price.equals(FLIGHT_PRICE_1)) {
                 s.setMessage("Congratulations. You bought it!");
-            } else if (s.getParser().getRawParameter("radio1", "").equals("on") &&
-                price == FLIGHT_PRICE_2) {
+            } else if (s.getParser().getRawParameter("radio1", "").equals("on") && price.equals(FLIGHT_PRICE_2)) {
                 s.setMessage("Congratulations. You bought it!");
             }
-        }
+        } catch (Exception e) { }
     }
 
     protected Category getDefaultCategory()
